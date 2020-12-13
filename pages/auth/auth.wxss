@@ -1,7 +1,0 @@
-/* pages/auth/auth.wxss */
-.auth_btn {
-    width: 70rpx;
-    border: 1px solid var(--themeColor);
-    color: #999;
-    margin-top: 30rpx;
-}
