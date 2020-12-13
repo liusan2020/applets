@@ -1,0 +1,123 @@
+.container {
+    margin-bottom: 80rpx;
+}
+.swiper {
+    height: 36vh;
+    text-align: center;
+    background-color: #fff;
+    image {
+        width: 70%;
+    }
+}
+.infos {
+    padding: 20rpx 10rpx 10rpx 10rpx;
+    border-bottom: 15rpx solid rgba(192, 188, 188, 0.212);
+    .price {
+        padding-left: 10rpx;
+        &>text:nth-child(1) {
+            color: #ff0000;
+            font-size: 34rpx;
+            font-weight: 700;
+        }
+        &>text:nth-child(2) {
+            text-decoration: line-through;
+            margin-left: 23rpx;
+        }
+    }
+
+    .desc {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8rpx;
+        &>view:nth-child(1) {
+            flex: 4;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            padding-right: 10rpx;
+            overflow: hidden;
+            line-height: 43rpx;
+        }
+        &>view:nth-child(2) {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-left: 2px solid #cccccc;
+            image {
+                width: 50rpx;
+                height: 50rpx;
+            }
+        }
+    }
+}
+.title {
+    padding: 20rpx;
+    color: #ff0000;
+    font-size: 34rpx;
+    font-weight: 700;
+    border-bottom: 1px solid #ccc;
+}
+.description {
+    padding: 10rpx;
+    line-height: 50rpx;
+}
+.imgs {
+    padding: 0 10rpx;
+    image {
+        width: 100%;
+        height: auto;
+    }
+}
+.footer {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 90rpx;
+    background-color: #fff;
+    .tool {
+        flex: 4;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+        image {
+            width: 50rpx;
+            height: 50rpx;
+        }
+        text {
+            font-size: 26rpx;
+        }
+        button {
+            padding: 4rpx 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .btn {        
+        height: 100%;
+        text-align: center;
+        line-height: 90rpx;
+        font-size: 36rpx;
+        font-weight: 700;
+        color: #fff;
+    }
+    .add {
+        background-color: rgb(230, 155, 18);
+        flex: 6;
+    }
+    .buy {
+        background-color: rgb(235, 59, 43);
+        flex: 6;
+    }
+}

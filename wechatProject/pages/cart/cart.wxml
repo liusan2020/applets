@@ -1,0 +1,65 @@
+<!-- pages/cart/cart.wxml -->
+<view class="container">
+    <!-- 收货地址 -->
+    <view class="addr_box">
+        <view wx:if="{{!addrObj.userName}}" bindtap="myChooseAddress" class="add_btn">添加收货地址</view>
+        <view class="addr_info" wx:if="{{addrObj.userName}}">
+            <view class="name_phone">
+                <text>收货人：{{addrObj.userName}}</text>
+                <text>{{addrObj.telNumber}}</text>
+            </view>
+            <view class="address">
+                {{addrObj.provinceName+addrObj.cityName+addrObj.countyName+addrObj.detailInfo}}
+            </view>
+        </view>
+    </view>
+    <!-- 购物车标题 -->
+    <view class="cart_title">购物车</view>
+    <!-- 购物车列表 -->
+    <view class="cart_list">
+        <view class="cart_item" wx:for="{{cartList}}" wx:key="index">
+            <view class="chk">
+                <checkbox-group data-gid="{{item.gid}}" bindchange="selChange">
+                    <checkbox checked="{{item.checked}}"></checkbox>
+                </checkbox-group>
+            </view>
+            <view class="goods_img">
+                <image src="{{item.image_src[0]}}" mode="widthFix"></image>
+            </view>
+            <view class="goods_info">
+                <view class="gname">{{item.goods_name}}</view>
+                <view class="price_nums">
+                    <view class="gprice">
+                        <text>{{'¥  '+item.real_price+' /斤'}}</text>
+                    </view>
+                    <view class="gnums">
+                        <view data-gid="{{item.gid}}" data-incr="-1" data-buynum="{{item.num}}" bindtap="reduceIncrease">
+                            -
+                        </view>
+                        <view>{{item.num}}</view>
+                        <view data-gid="{{item.gid}}" data-incr="1" data-buynum="{{item.num}}" bindtap="reduceIncrease">
+                            +
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 底部费用栏 -->
+    <view class="btm_cost">
+        <view class="all_sel">
+            <checkbox-group class="sel_all" bindchange="selAll">
+                <checkbox checked="{{allChecked}}" value="1"></checkbox>
+            </checkbox-group>
+            <text>全选</text>
+        </view>
+        <view class="cost">
+            <view class="total">
+                <view class="hj">合计：</view>
+                <text class="cn_money">¥</text>
+                <text>{{totalCost}}</text>
+            </view>
+            <view bindtap="settleAccounts" class="settle_accounts">结算({{selNum}})</view>
+        </view>
+    </view>
+</view>
