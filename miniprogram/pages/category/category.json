@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "Search": "../../components/Search"
-  },
-  "navigationBarTitleText": "水果分类"
-}
