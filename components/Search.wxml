@@ -1,0 +1,9 @@
+<view class="searchBox">
+    <navigator class="searchNav" url="/pages/search/search">
+        <text class="searchText">搜水果</text>
+        <image class="searchIcon" src="../icons/search.png" mode="widthFix" lazy-load="false"></image>
+    </navigator>
+</view>
+<!-- <swiper class="" indicator-dots="true" indicator-color="rgba(0,0,0,.3)" autoplay="true" current="0" current-item-id="" interval="3000" duration="1000" circular="false">
+    <swiper-item class="" item-id=""></swiper-item>
+</swiper> -->

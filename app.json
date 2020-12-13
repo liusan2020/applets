@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/search/search",
+    "pages/category/category",
+    "pages/detail/detail",
+    "pages/cart/cart",
+    "pages/my/my",
+    "pages/pay/pay",
+    "pages/auth/auth",
+    "pages/aa/aa"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",       
+    "navigationBarBackgroundColor": "#A2CCFF",
+    "navigationBarTitleText": "水果小程序",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#666",
+    "selectedColor": "#A2CCFF",
+    "backgroundColor": "",
+    "position": "bottom",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./icons/home.png",
+        "selectedIconPath": "./icons/home-on.png"
+      },      
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类",
+        "iconPath": "./icons/category.png",
+        "selectedIconPath": "./icons/category-on.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "./icons/car.png",
+        "selectedIconPath": "./icons/car-on.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "./icons/my.png",
+        "selectedIconPath": "./icons/my-on.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,46 @@
+<view class="container">
+    <!-- 轮播图 -->
+    <swiper class="swiper" autoplay="true" interval="5000" circular="true">
+        <swiper-item wx:for="{{goodsObj.image_src}}" wx:key="index" bindtap="showBigImg" data-current="{{item}}">
+            <image mode="widthFix" src="{{item}}"></image>
+        </swiper-item>
+    </swiper>
+    <!-- 价格 -->
+    <view class="infos">
+        <view class="price">
+            <text>{{'￥'+goodsObj.real_price+'/斤'}}</text>
+            <text>{{'￥'+goodsObj.original_price+'/斤'}}</text>
+        </view>
+        <!-- 简介 收藏 -->
+        <view class="desc">
+            <view class="intro">{{goodsObj.intro}}</view>
+            <view class="collect">
+                <image mode="widthFix" src="../../icons/sc.png"></image>
+                <text>收藏</text>
+            </view>
+        </view>
+    </view>
+    <!-- 详情标题 -->
+    <view class="title">水果详情</view>
+    <!-- 商品描述 -->
+    <view class="description">{{goodsObj.description}}</view>
+    <!-- 底下商品图片 -->
+    <view class="imgs">
+        <image mode="widthFix" wx:for="{{goodsObj.image_src}}" wx:key="index" src="{{item}}"></image>
+    </view>
+</view>
+<!-- 底部工具栏 -->
+<view class="footer">
+    <view class="tool share">
+        <button open-type="share">
+            <image mode="widthFix" src="../../icons/share.png"></image>
+            <text>分享</text>
+        </button>
+    </view>
+    <navigator plain="true" open-type="switchTab" url="../cart/cart" class="tool cart">
+        <image mode="widthFix" src="../../icons/car.png"></image>
+        <text>购物车</text>
+    </navigator>
+    <view bindtap="addInCart" class="btn add">加入购物车</view>
+    <view class="btn buy">立即购买</view>
+</view>

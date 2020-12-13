@@ -1,0 +1,2 @@
+<!-- pages/auth/auth.wxml -->
+<button open-type="getUserInfo" class="auth_btn" bindgetuserinfo="authPay">点击授权支付</button>

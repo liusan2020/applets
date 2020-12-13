@@ -1,0 +1,36 @@
+<!-- pages/category/category.wxml -->
+<view class="category_index">
+    <!-- 搜索框 -->
+    <Search></Search>
+    <!-- 分类容器 -->
+    <view class="container">
+        <!-- 左侧菜单 -->
+        <scroll-view scroll-y="true" class="left_menu">
+            <view bindtap="menuChange" data-currIndex="{{index}}" class="{{index===currentOn?'menu-on':''}}" wx:for="{{leftMenus}}" wx:key="id" data-cid="{{item.cid}}">
+                <image src="{{item.icon_src}}" mode="widthFix"></image>
+                <text>{{item.cname}}</text>
+            </view>
+        </scroll-view>
+        <!-- 右侧商品 -->
+        <scroll-view scroll-y="true" class="right_goods" scroll-top="{{scrollTop}}" bindscrolltolower="loadData">
+            <navigator class="g_info" wx:for="{{goodsList}}" wx:key="id" url="../detail/detail?gid={{item.gid}}">
+                <view class="g_img">
+                    <view>
+                        <image lazy-load="true" src="{{item.image_src}}" mode="widthFix"></image>
+                    </view>
+                </view>
+                <view class="g_title">
+                    <view class="name_price">
+                        <view>{{item.goods_name}}</view>
+                        <view>{{'￥'+item.original_price+'/斤'}}</view>
+                        <view>{{'￥'+item.real_price+'/斤'}}</view>
+                    </view>
+                    <view class="add_cart">
+                        <text>添加</text>
+                        <image src="../../icons/add.png" mode="widthFix"></image>
+                    </view>
+                </view>
+            </navigator>
+        </scroll-view>
+    </view>
+</view>
