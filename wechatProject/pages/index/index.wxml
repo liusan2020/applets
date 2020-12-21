@@ -1,3 +1,5 @@
+<import src="../../img-loader/img-loader.wxml" />
+<template is="img-loader" data="{{ imgLoadList }}"></template>
 <view class="friut_index">
     <!-- 搜索框 -->
     <Search></Search>
@@ -5,14 +7,14 @@
     <view class="index_swiper">
         <swiper indicator-dots="true" autoplay="true" interval="3000" circular="true" indicator-active-color="#fff" indicator-color="#A2CCFF">
             <swiper-item wx:for="{{swipList}}" wx:key="id">
-                <image mode="widthFix" src="{{item.image_src}}"></image>
+                <image wx:if="{{item.loaded}}" mode="widthFix" src="{{item.image_src}}" bindload="imgLoaded" data-index="{{index}}" class="fade_in"></image>
             </swiper-item>
         </swiper>
     </view>
     <!-- 导航 -->
     <view class="friut_nav">
         <navigator wx:for="{{navList}}" wx:key="id">
-            <image mode="widthFix" src="{{item.res_src}}"></image>
+            <image wx:if="{{item.loaded}}" class="fade_in" mode="widthFix" src="{{item.image_src}}"></image>
             <text>{{item.res_name}}</text>
         </navigator>
     </view>
@@ -27,7 +29,7 @@
     <view class="hot_goods">
         <navigator wx:for="{{hotList}}" wx:key="id" url="../detail/detail?gid={{item.gid}}">
             <view>
-                <image src="{{item.image_src}}" mode="widthFix"></image>
+                <image wx:if="{{item.loaded}}" class="fade_in" src="{{item.image_src}}" mode="widthFix"></image>
             </view>
             <view>
                 <view>{{item.goods_name}}</view>
@@ -47,10 +49,6 @@
     <!-- 倾情推荐商品列表 -->
     <view class="recommend_goods">
         <navigator wx:for="{{recommendList}}" wx:key="id" url="../detail/detail?gid={{item.gid}}">
-            <view class="description">
-                <text class="des1">{{item.goods_name}}</text>
-                <text class="des2">{{'¥'+item.real_price+'/斤'}}</text>
-            </view>
             <view class="goods_img">
                 <view class="gimg1">
                     <image mode="widthFix" src="{{item.image_src[0]}}"></image>
@@ -63,6 +61,10 @@
                         <image mode="scaleToFill" src="{{item.image_src[2]}}"></image>
                     </view>
                 </view>
+            </view>
+            <view class="description">
+                <text class="des1">{{item.goods_name}}</text>
+                <text class="des2">详情</text>
             </view>
         </navigator>
     </view>

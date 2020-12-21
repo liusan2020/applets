@@ -1,6 +1,14 @@
 @padding:30rpx;
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+.fade_in {
+    animation: fadeIn 2s both;
+}
 // 轮播图样式
 .index_swiper {
+    position: relative; 
     swiper {
         height: 340rpx;
         image{
@@ -8,6 +16,7 @@
         }
     }
 }
+
 //导航样式
 .friut_nav {
     display: flex;
