@@ -14,38 +14,31 @@ class AppJson extends Model
         try {
             //code...
             $message = [];
-
+            global $domain;
+            $domain = Request::domain() . '/think/public';
             switch ($datatype) {
-                    //返回首页轮播图数据
-                case 'swiper':
-                    $message['message']  = Db::name('goods_category')->where('is_swip', 1)->withAttr('image_src', function ($value) {
-                        return Request::domain() . $value;
+                    //一次返回首页所有数据
+                case 'page':
+                    //轮播图数据
+                    $message['message']['swiper']  = Db::name('goods_category')->field('id,name,image_src')->where('is_swip', 1)->withAttr('image_src', function ($value) {
+                        return $GLOBALS['domain'] . $value;
                     })->select();
-                    break;
-
-                    //返回首页导航图标数据
-                case 'navs':
-                    $message['message']  = Db::name('img_icon')->where('res_type', 'nav')->withAttr('res_src', function ($value) {
-                        return Request::domain() . $value;
+                    // 导航图片数据
+                    $message['message']['navs']  = Db::name('img_icon')->field('id,res_src as image_src')->where('res_type', 'nav')->withAttr('image_src', function ($value) {
+                        return $GLOBALS['domain'] . $value;
                     })->select();
-                    break;
+                    //火爆热卖数据
+                    $message['message']['hot_img'] = $GLOBALS['domain'] .  Db::name('img_icon')->where('res_type', 'hot')->value('res_src');
 
-                    //返回首页热卖数据
-                case 'hot':
-                    $message['hot_img'] = Request::domain() .  Db::name('img_icon')->where('res_type', 'hot')->value('res_src');
-
-                    $message['message']  = Db::name('goods')->field('id gid,goods_name,0+CAST(original_price AS CHAR) original_price,0+CAST(real_price AS CHAR) real_price,image_src')->where('is_hot', 1)->withAttr('image_src', function ($value) {
-                        return Request::domain() . explode('|', $value)[0];
+                    $message['message']['hot_data']  = Db::name('goods')->field('id gid,goods_name,0+CAST(original_price AS CHAR) original_price,0+CAST(real_price AS CHAR) real_price,image_src')->where('is_hot', 1)->withAttr('image_src', function ($value) {
+                        return $GLOBALS['domain'] . explode('|', $value)[0];
                     })->limit(0, 6)->select();
-                    break;
+                    //推荐数据
+                    $message['message']['tj_img'] = $GLOBALS['domain'] .  Db::name('img_icon')->where('res_type', 'tj')->value('res_src');
 
-                    //返回首页推荐数据
-                case 'tj':
-                    $message['tj_img'] = Request::domain() .  Db::name('img_icon')->where('res_type', 'tj')->value('res_src');
-
-                    $message['message']  = Db::name('goods')->field('id gid,goods_name,0+CAST(original_price AS CHAR) original_price,0+CAST(real_price AS CHAR) real_price,image_src,description')->where('is_hot', 1)->withAttr('image_src', function ($value) {
+                    $message['message']['tj_data']  = Db::name('goods')->field('id gid,goods_name,0+CAST(original_price AS CHAR) original_price,0+CAST(real_price AS CHAR) real_price,image_src,description')->where('is_hot', 1)->withAttr('image_src', function ($value) {
                         $temp = array_chunk(explode('|', $value), 3, true)[0];
-                        $dm = Request::domain();
+                        $dm = $GLOBALS['domain'];
                         foreach ($temp as $k => $v) {
                             $temp[$k] = $dm . $v;
                         }
@@ -53,12 +46,49 @@ class AppJson extends Model
                     })->order(['id' => 'desc'])->limit(0, 6)->select();
                     break;
 
+                    //返回首页轮播图数据
+                    // case 'swiper':
+                    //     $message['message']  = Db::name('goods_category')->field('id,name,image_src')->where('is_swip', 1)->withAttr('image_src', function ($value) {
+                    //         return $GLOBALS['domain'] . $value;
+                    //     })->select();
+                    //     break;
+
+                    //返回首页导航图标数据
+                    // case 'navs':
+                    //     $message['message']  = Db::name('img_icon')->where('res_type', 'nav')->withAttr('res_src', function ($value) {
+                    //         return $GLOBALS['domain'] . $value;
+                    //     })->select();
+                    //     break;
+
+                    //返回首页热卖数据
+                    // case 'hot':
+                    //     $message['hot_img'] = $GLOBALS['domain'] .  Db::name('img_icon')->where('res_type', 'hot')->value('res_src');
+
+                    //     $message['message']  = Db::name('goods')->field('id gid,goods_name,0+CAST(original_price AS CHAR) original_price,0+CAST(real_price AS CHAR) real_price,image_src')->where('is_hot', 1)->withAttr('image_src', function ($value) {
+                    //         return $GLOBALS['domain'] . explode('|', $value)[0];
+                    //     })->limit(0, 6)->select();
+                    //     break;
+
+                    //返回首页推荐数据
+                    // case 'tj':
+                    //     $message['tj_img'] = $GLOBALS['domain'] .  Db::name('img_icon')->where('res_type', 'tj')->value('res_src');
+
+                    //     $message['message']  = Db::name('goods')->field('id gid,goods_name,0+CAST(original_price AS CHAR) original_price,0+CAST(real_price AS CHAR) real_price,image_src,description')->where('is_hot', 1)->withAttr('image_src', function ($value) {
+                    //         $temp = array_chunk(explode('|', $value), 3, true)[0];
+                    //         $dm = $GLOBALS['domain'];
+                    //         foreach ($temp as $k => $v) {
+                    //             $temp[$k] = $dm . $v;
+                    //         }
+                    //         return $temp;
+                    //     })->order(['id' => 'desc'])->limit(0, 6)->select();
+                    //     break;
+
                     //返回分类数据及分类对应的商品数据
                 case 'cgdatas':
                     $res = Db::name('goods_category')->alias('a')->leftJoin('goods b', 'a.id=b.category_id')->field('a.id cid,a.name,a.icon_src,b.id gid,b.goods_name,0+CAST(b.original_price AS CHAR) original_price,0+CAST(b.real_price AS CHAR) real_price,b.image_src')->where('a.parent_id', 0)->withAttr('icon_src', function ($value) {
-                        return Request::domain() . $value;
+                        return $GLOBALS['domain'] . $value;
                     })->withAttr('image_src', function ($value) {
-                        return Request::domain() . explode('|', $value)[0];
+                        return $GLOBALS['domain'] . explode('|', $value)[0];
                     })->order('category_id', 'asc')->select();
                     $cates = array();
                     $i = 0;
@@ -94,7 +124,7 @@ class AppJson extends Model
                     //返回搜索的结果 
                 case 'searchResult':
                     $message['message']  = Db::name('goods')->field('id gid,goods_name,0+CAST(original_price AS CHAR) original_price,0+CAST(real_price AS CHAR) real_price,image_src,description')->where('goods_name', 'like', "%{$extra}%")->withAttr('image_src', function ($value) {
-                        return Request::domain() . explode('|', $value)[0];
+                        return $GLOBALS['domain'] . explode('|', $value)[0];
                     })->order(['id' => 'desc'])->limit(0, 6)->select();
                     break;
 
@@ -103,10 +133,18 @@ class AppJson extends Model
                     $message['message']  = Db::name('goods')->field('id gid,goods_name,0+CAST(original_price AS CHAR) original_price,0+CAST(real_price AS CHAR) real_price,image_src,description,intro')->where('id', $extra)->withAttr('image_src', function ($value) {
                         $temp = explode('|', $value);
                         foreach ($temp as $k => $v) {
-                            $temp[$k] = Request::domain() . $v;
+                            $temp[$k] = $GLOBALS['domain'] . $v;
                         }
                         return $temp;
                     })->find();
+                    break;
+
+                case 'getImgs':
+                    $message['message']  = Db::name('goods')->field('id gid,image_src')->withAttr('image_src', function ($value) {
+                        return $GLOBALS['domain'] . explode('|', $value)[0];
+                    })->limit($extra, 2)->select();
+
+                    $message['total']  = Db::name('goods')->count('*');
                     break;
             }
 
